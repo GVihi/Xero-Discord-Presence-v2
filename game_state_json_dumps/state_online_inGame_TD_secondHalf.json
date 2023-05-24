@@ -1,0 +1,113 @@
+{
+    "success": true,
+    "info": {
+        "name": "SpanishBoy",
+        "clan": null,
+        "avatar": {
+            "image": "https://wsrv.nl/?url=https://assets.xero.gg/avatars/447549455db4acc7d0eae55b9f26cbeac20064cbb95a1597b02ff54fbe080243/TqnD392TStSR.jpeg&amp;fit=cover&amp;h=256&amp;w=256&amp;c"
+        },
+        "progression": {
+            "xp": 266784,
+            "level": {
+                "value": 24,
+                "image": "https://xero.gg/assets/img/grade/xero/84/24.png",
+                "progress": {
+                    "current": 4534,
+                    "required": 31880,
+                    "percentage": 14
+                }
+            }
+        },
+        "premium": {
+            "enabled": false,
+            "expiryTime": null
+        }
+    },
+    "currency": {
+        "pen": 93378,
+        "zp": 110,
+        "gems": 0
+    },
+    "game": {
+        "online": true,
+        "server": {
+            "name": "Xero"
+        },
+        "channel": {
+            "name": "Swords only"
+        },
+        "room": {
+            "id": 68,
+            "name": "m:jump",
+            "timeLimit": 600,
+            "scoreLimit": 4,
+            "isFriendly": true,
+            "isPasswordProtected": true,
+            "playerLimit": 4,
+            "weaponLimit": {
+                "id": 1,
+                "name": "SwordOnly",
+                "fullName": "Sword Only"
+            },
+            "mode": {
+                "name": "Touchdown",
+                "color": "#00d0ff"
+            },
+            "map": {
+                "name": "Station 2",
+                "image": "https://cdn.xero.gg/img/maps/station_s.png"
+            },
+            "match": {
+                "gameState": {
+                    "name": "Playing"
+                },
+                "gameTimeState": {
+                    "name": "SecondHalf"
+                },
+                "gameTime": 352,
+                "roundTime": 17,
+                "modeData": {
+                    "score": {
+                        "alpha": 1,
+                        "beta": 0
+                    }
+                },
+                "playerData": {
+                    "isMaster": true,
+                    "isHost": true,
+                    "team": {
+                        "id": 1,
+                        "name": "Alpha",
+                        "color": "#00caff"
+                    },
+                    "state": {
+                        "name": "Alive"
+                    },
+                    "mode": {
+                        "name": "Normal"
+                    },
+                    "isReady": false,
+                    "isIngame": true,
+                    "playtime": 351.5255965,
+                    "ping": 14.7152,
+                    "record": {
+                        "totalScore": 12,
+                        "kills": 0,
+                        "killsAssists": 0,
+                        "deaths": 2,
+                        "goalsScore": 1,
+                        "goalAssistScore": 0,
+                        "offenseScore": 0,
+                        "offenseAssistScore": 0,
+                        "defenseScore": 0,
+                        "defenseAssistScore": 0,
+                        "healScore": 0,
+                        "healAssistScore": 0,
+                        "offenseReboundScore": 1,
+                        "damageDealt": 0
+                    }
+                }
+            }
+        }
+    }
+}
