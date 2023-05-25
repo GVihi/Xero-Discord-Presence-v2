@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import requests
 import json
 import credentials
+import datetime
 
 class bcolors:
     HEADER = '\033[95m'
@@ -69,6 +70,15 @@ def main():
     smallImg = ""
     smallImg_tooltip = ""
 
+    statusSwitchCounter = 0
+    isTDorDM = "false"
+    isTDorDM_andPlaying = "false"
+
+    isBRorChaser = "false"
+    isBRorChaser_andPlaying = "false"
+
+    status2 = "Placeholder text"
+
 
     try:
         while True:
@@ -117,11 +127,24 @@ def main():
                         if data['game']['room'] == None:
                             status = data['game']['channel']['name']
                         else:
+                            isTDorDM_andPlaying = "false"
+                            isTDorDM = "false"
+                            isBRorChaser = "false"
+                            isBRorChaser_andPlaying = "false"
                             pRoomId = data['game']['room']['id']
                             pGameMode = data['game']['room']['mode']['name']
-                            if pGameMode == "Touchdown": pGameMode = "TD"
-                            if pGameMode == "Deathmatch": pGameMode = "DM"
-                            if pGameMode == "Battle Royal": pGameMode = "BR"
+                            if pGameMode == "Touchdown": 
+                                pGameMode = "TD"
+                                isTDorDM = "true"
+                                #print(getTime() + debug + "TD or DM: " + isTDorDM)
+                            if pGameMode == "Deathmatch": 
+                                pGameMode = "DM"
+                                isTDorDM = "true"
+                            if pGameMode == "Battle Royal": 
+                                pGameMode = "BR"
+                                isBRorChaser = "true"
+                            if pGameMode == "Chaser":
+                                isBRorChaser = "true"
                             pChannel = data['game']['channel']['name']
 
                             #When player is in a room, check gameState
@@ -129,6 +152,37 @@ def main():
                                 pGameState = data['game']['room']['match']['gameTimeState']['name']
                                 if pGameState == "FirstHalf": pGameState = "First Half"
                                 if pGameState == "SecondHalf": pGameState = "Second Half"
+
+                                if isTDorDM == "true":
+                                    isTDorDM_andPlaying = "true"
+                                    #print(getTime() + debug + "Getting match score and calculating time remaining")
+                                    pTimeLimit = data['game']['room']['timeLimit']
+                                    pRoundTime = data['game']['room']['match']['roundTime']
+                                    pScoreAlpha = data['game']['room']['match']['modeData']['score']['alpha']
+                                    pScoreBeta = data['game']['room']['match']['modeData']['score']['beta']
+                                    pMap = data['game']['room']['map']['name']
+
+                                    timeRemaining = (pTimeLimit / 2) - pRoundTime
+                                    timeRemaining = datetime.timedelta(seconds=timeRemaining)
+
+                                    status2 = pMap + " | " + str(pScoreAlpha) + "-" + str(pScoreBeta) + " | " + str(timeRemaining)
+
+                                if pGameState == "HalfTime":
+                                    isTDorDM_andPlaying = "false"
+                                    pGameState = "Half Time"
+
+                                if isBRorChaser == "true":
+                                    isBRorChaser_andPlaying = "true"
+                                    pTimeLimit = data['game']['room']['timeLimit']
+                                    pRoundTime = data['game']['room']['match']['roundTime']
+                                    pMap = data['game']['room']['map']['name']
+
+                                    timeRemaining = (pTimeLimit / 2) - pRoundTime
+                                    timeRemaining = datetime.timedelta(seconds=timeRemaining)
+
+                                    status2 = pMap + " | " + str(timeRemaining)
+
+
                             else:
                                 pGameState = data['game']['room']['match']['gameState']['name']
                             
@@ -136,6 +190,25 @@ def main():
 
                             if pGameState == "None":
                                 status = pChannel +  " #" + str(pRoomId) + ", " + pGameMode
+
+                            if isTDorDM == "true" and isTDorDM_andPlaying == "true" and statusSwitchCounter < 10:
+                                #print(getTime() + debug + "statusSwitchCounter: " + str(statusSwitchCounter) + "\n")
+                                if statusSwitchCounter < 5:
+                                    status = status2
+                                
+                                statusSwitchCounter+= 1
+                                
+                                if statusSwitchCounter == 10:
+                                    statusSwitchCounter = 0
+
+                            if isBRorChaser == "true" and isBRorChaser_andPlaying == "true" and statusSwitchCounter < 10:
+                                if statusSwitchCounter < 5:
+                                    status = status2
+                                
+                                statusSwitchCounter+= 1
+                                
+                                if statusSwitchCounter == 10:
+                                    statusSwitchCounter = 0
 
                             if data['game']['room']['isPasswordProtected'] == True:
                                 smallImg = "locked"
