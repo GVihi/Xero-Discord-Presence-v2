@@ -177,7 +177,7 @@ def main():
                                     pRoundTime = data['game']['room']['match']['roundTime']
                                     pMap = data['game']['room']['map']['name']
 
-                                    timeRemaining = (pTimeLimit / 2) - pRoundTime
+                                    timeRemaining = pTimeLimit - pRoundTime
                                     timeRemaining = datetime.timedelta(seconds=timeRemaining)
 
                                     status2 = pMap + " | " + str(timeRemaining)
