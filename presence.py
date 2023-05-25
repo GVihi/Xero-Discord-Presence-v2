@@ -111,33 +111,25 @@ def main():
                         if data['game']['room'] == None:
                             status = data['game']['channel']['name']
                         else:
+                            pRoomId = data['game']['room']['id']
+                            pGameMode = data['game']['room']['mode']['name']
+                            if pGameMode == "Touchdown": pGameMode = "TD"
+                            if pGameMode == "Deathmatch": pGameMode = "DM"
+                            if pGameMode == "Battle Royal": pGameMode = "BR"
+                            pChannel = data['game']['channel']['name']
+
                             #When player is in a room, check gameState
                             if data['game']['room']['match']['gameState']['name'] == "Playing":
-                                pRoomId = data['game']['room']['id']
                                 pGameState = data['game']['room']['match']['gameTimeState']['name']
-                                pGameMode = data['game']['room']['mode']['name']
-                                if pGameMode == "Touchdown": pGameMode = "TD"
-                                if pGameMode == "Deathmatch": pGameMode = "DM"
-                                if pGameMode == "Battle Royal": pGameMode = "BR"
-                                pChannel = data['game']['channel']['name']
-
-                                status = pChannel + " #" + str(pRoomId) + ", " + pGameMode + ", " + pGameState
-
-                                if pGameState == "None":
-                                    status = pChannel +  " #" + str(pRoomId) + ", " + pGameMode
+                                if pGameState == "FirstHalf": pGameState = "First Half"
+                                if pGameState == "SecondHalf": pGameState = "Second Half"
                             else:
-                                pRoomId = data['game']['room']['id']
                                 pGameState = data['game']['room']['match']['gameState']['name']
-                                pGameMode = data['game']['room']['mode']['name']
-                                if pGameMode == "Touchdown": pGameMode = "TD"
-                                if pGameMode == "Deathmatch": pGameMode = "DM"
-                                if pGameMode == "Battle Royal": pGameMode = "BR"
-                                pChannel = data['game']['channel']['name']
+                            
+                            status = pChannel + " #" + str(pRoomId) + ", " + pGameMode + ", " + pGameState
 
-                                status = pChannel + " #" + str(pRoomId) + ", " + pGameMode + ", " + pGameState
-
-                                if pGameState == "None":
-                                    status = pChannel + " #" + str(pRoomId) + ", " + pGameMode
+                            if pGameState == "None":
+                                status = pChannel +  " #" + str(pRoomId) + ", " + pGameMode
                                     
                     except Exception as e:
                         print(getTime() + err + "Something went wrong while getting room data.")
