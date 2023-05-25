@@ -21,6 +21,8 @@ Show your Discord firends that you're playing Xero! - Now using the Xero API. No
 - It is also important to upload all images from the `assets` folder to your Discord Application over at the `Rich Presence` tab.
 5. Run the presence.py script with `python3 presence.py` command
 
+Presence can be stopped via **Keyboard Interrupt** (CTRL + C).
+
 ## App still in development
 The program is still in early development and needs a lot of testing and QoL improvements.
 For a fully finished and tested solution, head over to my good friend [Dekirai's GitHub](https://github.com/Dekirai/XeroPresence) and give his tool a try ;D
