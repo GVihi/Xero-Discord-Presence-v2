@@ -66,6 +66,9 @@ def main():
     pGameMode = ""
     pChannel = ""
 
+    smallImg = ""
+    smallImg_tooltip = ""
+
 
     try:
         while True:
@@ -102,6 +105,9 @@ def main():
                     pName = data['info']['name']
                     pLevel = data['info']['progression']['level']['value']
                     pRankPercentage = data['info']['progression']['level']['progress']['percentage']
+
+                    smallImg = "checkmark"
+                    smallImg_tooltip = pName + " is online"
     
                     #Set rich presence "details" parameter to values above ^
                     detail = pName + ", Rank " + str(pLevel) + " (" + str(pRankPercentage) + "%)"
@@ -130,6 +136,13 @@ def main():
 
                             if pGameState == "None":
                                 status = pChannel +  " #" + str(pRoomId) + ", " + pGameMode
+
+                            if data['game']['room']['isPasswordProtected'] == True:
+                                smallImg = "locked"
+                                smallImg_tooltip = "Room #" + str(pRoomId) + " is locked"
+                            else:
+                                smallImg = "unlocked"
+                                smallImg_tooltip = "Room #" + str(pRoomId) + " is unlocked"
                                     
                     except Exception as e:
                         print(getTime() + err + "Something went wrong while getting room data.")
@@ -143,6 +156,8 @@ def main():
                         details=detail,
                         state=status,
                         large_image="image",
+                        small_image=smallImg,
+                        small_text=smallImg_tooltip,
                         buttons=[{"label":"View Profile","url":pLink}]
                     )
 
