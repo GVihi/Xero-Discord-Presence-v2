@@ -94,9 +94,9 @@ def main():
                     #Had trouble with KeyError 'game' due to trying to compare boolean True to string "true"
                     #print(getTime() + debug + str(data['game']['online']))
                     if connected == "false":
+                        print(getTime() + info + data['info']['name'] + " is online!")
                         discordConnect()
                         start_time = int(time.time())
-                        print(getTime() + info + data['info']['name'] + " is online!")
 
                     #Get player name, level and xp data
                     pName = data['info']['name']
@@ -107,30 +107,42 @@ def main():
                     detail = pName + ", Rank " + str(pLevel) + " (" + str(pRankPercentage) + "%)"
 
                     #Check if player is in a room
-                    if data['game']['room'] == None:
-                        status = data['game']['channel']['name']
-                    else:
-                        #When player is in a room, check gameState
-                        if data['game']['room']['match']['gameState']['name'] == "Playing":
-                            pRoomId = data['game']['room']['id']
-                            pGameState = data['game']['room']['match']['gameTimeState']['name']
-                            pGameMode = data['game']['room']['mode']['name']
-                            pChannel = data['game']['channel']['name']
-
-                            status = pChannel + " #" + str(pRoomId) + ", " + pGameMode + ", " + pGameState
-
-                            if pGameState == "None":
-                                status = pChannel +  " #" + str(pRoomId) + ", " + pGameMode
+                    try:
+                        if data['game']['room'] == None:
+                            status = data['game']['channel']['name']
                         else:
-                            pRoomId = data['game']['room']['id']
-                            pGameState = data['game']['room']['match']['gameState']['name']
-                            pGameMode = data['game']['room']['mode']['name']
-                            pChannel = data['game']['channel']['name']
+                            #When player is in a room, check gameState
+                            if data['game']['room']['match']['gameState']['name'] == "Playing":
+                                pRoomId = data['game']['room']['id']
+                                pGameState = data['game']['room']['match']['gameTimeState']['name']
+                                pGameMode = data['game']['room']['mode']['name']
+                                if pGameMode == "Touchdown": pGameMode = "TD"
+                                if pGameMode == "Deathmatch": pGameMode = "DM"
+                                if pGameMode == "Battle Royal": pGameMode = "BR"
+                                pChannel = data['game']['channel']['name']
 
-                            status = pChannel + " #" + str(pRoomId) + ", " + pGameMode + ", " + pGameState
+                                status = pChannel + " #" + str(pRoomId) + ", " + pGameMode + ", " + pGameState
 
-                            if pGameState == "None":
-                                status = pChannel + " #" + str(pRoomId) + ", " + pGameMode
+                                if pGameState == "None":
+                                    status = pChannel +  " #" + str(pRoomId) + ", " + pGameMode
+                            else:
+                                pRoomId = data['game']['room']['id']
+                                pGameState = data['game']['room']['match']['gameState']['name']
+                                pGameMode = data['game']['room']['mode']['name']
+                                if pGameMode == "Touchdown": pGameMode = "TD"
+                                if pGameMode == "Deathmatch": pGameMode = "DM"
+                                if pGameMode == "Battle Royal": pGameMode = "BR"
+                                pChannel = data['game']['channel']['name']
+
+                                status = pChannel + " #" + str(pRoomId) + ", " + pGameMode + ", " + pGameState
+
+                                if pGameState == "None":
+                                    status = pChannel + " #" + str(pRoomId) + ", " + pGameMode
+                                    
+                    except Exception as e:
+                        print(getTime() + err + "Something went wrong while getting room data.")
+                        print(getTime() + debug + str(e))
+                        print(getTime() + info + "Retrying... \n")
                 
                     pLink = "https://xero.gg/player/" + pName
 
@@ -144,6 +156,7 @@ def main():
 
                 else:
                     if connected == "true":
+                        print(getTime() + info + data['info']['name'] + " went offline!")
                         discordDisconnect()
                         connected = "false"
                             
