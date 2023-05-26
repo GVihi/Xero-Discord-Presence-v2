@@ -79,6 +79,9 @@ def main():
 
     status2 = "Placeholder text"
 
+    idle_timer = 0
+    idle = "false"
+
 
     try:
         while True:
@@ -126,7 +129,17 @@ def main():
                     try:
                         if data['game']['room'] == None:
                             status = data['game']['channel']['name']
+                            idle_timer+= 1
+
+                            #If player is in channel select or room browser for 90 seconds, set small_image and small_text to "Idle" status
+                            #TODO implement actual real time timer - current timer depends on the time.sleep function which is set to 1 second, due to frequency of API updates
+                            #Because of this the idle_timer lags behind the actual timer
+                            if idle_timer > 90:
+                                status = status + ", Idle (" + str(datetime.timedelta(seconds=idle_timer)) + ")"
+                                smallImg = "idle"
+                                smallImg_tooltip = pName + " is idle"
                         else:
+                            idle_timer = 0
                             isTDorDM_andPlaying = "false"
                             isTDorDM = "false"
                             isBRorChaser = "false"
