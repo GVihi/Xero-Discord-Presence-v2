@@ -23,6 +23,18 @@ Show your Discord firends that you're playing Xero! - Now using the Xero API. No
 
 Presence can be stopped via **Keyboard Interrupt** (CTRL + C).
 
+
+### Discord Presence
+
+![discord](https://github.com/GVihi/Xero-Discord-Presence-v2/blob/main/images/Presence.gif)
+
 ## App still in development
 The program is still in early development and needs a lot of testing and QoL improvements.
 For a fully finished and tested solution, head over to my good friend [Dekirai's GitHub](https://github.com/Dekirai/XeroPresence) and give his tool a try ;D
+
+## Setup Help
+Upload all images from the `assets` folder with the `Add Image(s)` button
+
+![Discord_Developer_Portal](https://github.com/GVihi/Xero-Discord-Presence-v2/blob/main/images/Discord%20Developer%20Portal.png)
+
+Create a Xero API key, which will give you the id and secret needed for `credentials.py`
