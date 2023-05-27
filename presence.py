@@ -67,6 +67,7 @@ def main():
     pGameMode = ""
     pChannel = ""
 
+    largeImg = ""
     smallImg = ""
     smallImg_tooltip = ""
 
@@ -120,6 +121,7 @@ def main():
                     pLevel = data['info']['progression']['level']['value']
                     pRankPercentage = data['info']['progression']['level']['progress']['percentage']
 
+                    largeImg = "image"
                     smallImg = "checkmark"
                     smallImg_tooltip = pName + " is online"
     
@@ -175,15 +177,22 @@ def main():
                                     #print(getTime() + debug + "Getting match score and calculating time remaining")
                                     pTimeLimit = data['game']['room']['timeLimit']
                                     pRoundTime = data['game']['room']['match']['roundTime']
-                                    pScoreAlpha = data['game']['room']['match']['modeData']['score']['alpha']
-                                    pScoreBeta = data['game']['room']['match']['modeData']['score']['beta']
+
                                     pMap = data['game']['room']['map']['name']
+                                    largeImg = data['game']['room']['map']['image']
 
                                     timeRemaining = (pTimeLimit / 2) - pRoundTime
                                     timeRemaining = datetime.timedelta(seconds=timeRemaining)
 
-                                    status2 = pMap + " | " + str(pScoreAlpha) + "-" + str(pScoreBeta) + " | " + str(timeRemaining)
+                                    status2 = pMap + " | " + str(timeRemaining)
 
+                                    #Joining an ongion match and waiting in room lobby throws NoneType error, because you can't
+                                    #view the score, hence the necessary check
+                                    if data['game']['room']['match']['modeData'] != None:
+                                        pScoreAlpha = data['game']['room']['match']['modeData']['score']['alpha']
+                                        pScoreBeta = data['game']['room']['match']['modeData']['score']['beta']
+                                        status2 = pMap + " | " + str(pScoreAlpha) + "-" + str(pScoreBeta) + " | " + str(timeRemaining)
+                                    
                                 if pGameState == "HalfTime":
                                     isTDorDM_andPlaying = "false"
                                     pGameState = "Half Time"
@@ -193,6 +202,7 @@ def main():
                                     pTimeLimit = data['game']['room']['timeLimit']
                                     pRoundTime = data['game']['room']['match']['roundTime']
                                     pMap = data['game']['room']['map']['name']
+                                    largeImg = data['game']['room']['map']['image']
 
                                     timeRemaining = pTimeLimit - pRoundTime
                                     timeRemaining = datetime.timedelta(seconds=timeRemaining)
@@ -245,7 +255,7 @@ def main():
                         start=start_time,
                         details=detail,
                         state=status,
-                        large_image="image",
+                        large_image=largeImg,
                         small_image=smallImg,
                         small_text=smallImg_tooltip,
                         buttons=[{"label":"View Profile","url":pLink}]
