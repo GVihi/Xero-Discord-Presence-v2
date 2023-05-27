@@ -28,7 +28,7 @@ Presence can be stopped via **Keyboard Interrupt** (CTRL + C).
 ## App still in development
 The program is still in development and needs a lot of testing and QoL improvements.
 Apologies for not being very user friendly, due to the whole Discord Application and Xero API Key requirement.
-Once the project is fully setup up, it can be started and ran 24/7 with no interaction required.
+Once the project is fully set up, it can be started and ran 24/7 with no interaction required.
 For a fully finished and tested solution, head over to my good friend [Dekirai's GitHub](https://github.com/Dekirai/XeroPresence) and give his tool a try ;D
 
 ## Setup Help
