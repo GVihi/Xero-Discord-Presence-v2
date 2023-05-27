@@ -38,3 +38,5 @@ Upload all images from the `assets` folder with the `Add Image(s)` button
 ![Discord_Developer_Portal](https://github.com/GVihi/Xero-Discord-Presence-v2/blob/main/images/Discord%20Developer%20Portal.png)
 
 Create a Xero API key, which will give you the id and secret needed for `credentials.py`
+
+![XERO_API_Key](https://github.com/GVihi/Xero-Discord-Presence-v2/blob/main/images/xero.gg%20API.png)
