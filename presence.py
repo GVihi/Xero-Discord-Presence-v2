@@ -85,6 +85,8 @@ def main():
     idle = "false"
     idle_start = 0
 
+    largeImageLobbyCounter = 0
+
 
     try:
         while True:
@@ -122,9 +124,17 @@ def main():
                     pLevel = data['info']['progression']['level']['value']
                     pRankPercentage = data['info']['progression']['level']['progress']['percentage']
 
+                    largeImageLobbyCounter+=1
+
                     largeImg = "image"
                     smallImg = "checkmark"
                     smallImg_tooltip = pName + " is online"
+
+                    if largeImageLobbyCounter < 5:
+                        largeImg = data['info']['progression']['level']['image']
+
+                    if largeImageLobbyCounter == 10:
+                        largeImageLobbyCounter = 0
     
                     #Set rich presence "details" parameter to values above ^
                     detail = pName + ", Rank " + str(pLevel) + " (" + str(pRankPercentage) + "%)"
