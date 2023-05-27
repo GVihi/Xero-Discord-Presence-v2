@@ -2,6 +2,8 @@
 
 Show your Discord firends that you're playing Xero! - Now using the Xero API. No more Web Scraping for player info!
 
+![discord](https://github.com/GVihi/Xero-Discord-Presence-v2/blob/main/images/Presence.gif)
+
 ## Requirements
 - Windows 10 / 11
 - Python 3 (https://www.python.org/)
@@ -23,13 +25,10 @@ Show your Discord firends that you're playing Xero! - Now using the Xero API. No
 
 Presence can be stopped via **Keyboard Interrupt** (CTRL + C).
 
-
-### Discord Presence
-
-![discord](https://github.com/GVihi/Xero-Discord-Presence-v2/blob/main/images/Presence.gif)
-
 ## App still in development
-The program is still in early development and needs a lot of testing and QoL improvements.
+The program is still in development and needs a lot of testing and QoL improvements.
+Apologies for not being very user friendly, due to the whole Discord Application and Xero API Key requirement.
+Once the project is fully setup up, it can be started and ran 24/7 with no interaction required.
 For a fully finished and tested solution, head over to my good friend [Dekirai's GitHub](https://github.com/Dekirai/XeroPresence) and give his tool a try ;D
 
 ## Setup Help
