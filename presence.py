@@ -28,7 +28,7 @@ def getTime():
 def discordConnect():
     global connected
     try:
-        print(getTime() + info + "Attempting to connect to Discord!")
+        print(getTime() + info + "Attempting to connect to Discord...")
         global RPC
         RPC = Presence(credentials.app_id)
         RPC.connect()
@@ -37,6 +37,7 @@ def discordConnect():
     except:
         time.sleep(1)
         print(getTime() + err + "Failed to connect to Discord!")
+        print(getTime() + info + "Make sure Discord is running! \n")
         time.sleep(1)
         print(getTime() + info + "Exiting application...")
         time.sleep(1)
@@ -48,7 +49,8 @@ def discordDisconnect():
     RPC.clear()
 
 def main():
-    print(getTime() + info + "Starting Rich Presence for Xero...\n")
+    print(getTime() + info + "Starting Rich Presence for Xero...")
+    print(getTime() + info + "Waiting for user to appear online...\n")
 
     global connected
     connected = "false"
@@ -105,9 +107,9 @@ def main():
                 gotData = "true"
             except:
                 print(getTime() + err + "Unable to access Xero API!")
-                print(getTime() + info + "Attempting to get data in 15 seconds!")
+                print(getTime() + info + "Attempting to get data in 5 seconds!")
                 gotData = "false"
-                time.sleep(15)
+                time.sleep(5)
 
             if gotData == "true":
                 #If player is Online, connect to Discord
@@ -115,7 +117,7 @@ def main():
                     #Had trouble with KeyError 'game' due to trying to compare boolean True to string "true"
                     #print(getTime() + debug + str(data['game']['online']))
                     if connected == "false":
-                        print(getTime() + info + data['info']['name'] + " is online!")
+                        print(getTime() + info + data['info']['name'] + " is online! \n")
                         discordConnect()
                         start_time = int(time.time())
 
@@ -262,15 +264,22 @@ def main():
                 
                     pLink = "https://xero.gg/player/" + pName
 
-                    RPC.update(
-                        start=start_time,
-                        details=detail,
-                        state=status,
-                        large_image=largeImg,
-                        small_image=smallImg,
-                        small_text=smallImg_tooltip,
-                        buttons=[{"label":"View Profile","url":pLink}]
-                    )
+                    try:
+                        RPC.update(
+                            start=start_time,
+                            details=detail,
+                            state=status,
+                            large_image=largeImg,
+                            small_image=smallImg,
+                            small_text=smallImg_tooltip,
+                            buttons=[{"label":"View Profile","url":pLink}]
+                        )
+                    except Exception as e:
+                        print(getTime() + err + "An error occured while communicating with Discord.")
+                        print(getTime() + err + "Unable to update rich presence.")
+                        print(getTime() + debug + str(e))
+                        print(getTime() + info + "Retrying... \n")
+                        connected = "false"
 
                 else:
                     if connected == "true":
