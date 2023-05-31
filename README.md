@@ -16,12 +16,12 @@ Show your Discord firends that you're playing Xero! - Now using the Xero API. No
 ## Setup
 1. Download project files
 2. Install Python 3
-3. Install requirements.txt. Use `python3 -m pip install -r requirements.txt` to install all listed packages
+3. Install requirements.txt. Use `python3 -m pip install -r requirements.txt` or run `requirements.bat` to install all listed packages
 4. Fill out credentials.py with - well, your credentials silly!
-- Xero API key and secret must be created over at https://xero.gg/settings/api.
-- A Discord App ID can be generated at https://discord.com/developers/applications. 
-- It is also important to upload all images from the `assets` folder to your Discord Application over at the `Rich Presence` tab.
-5. Run the presence.py script with `python3 presence.py` command
+- Xero API key and secret must be created over at https://xero.gg/settings/api
+- A Discord App ID can be generated at https://discord.com/developers/applications
+- It is also important to upload all images from the `assets` folder to your Discord Application over at the `Rich Presence` tab
+5. Run the presence.py script with `python3 presence.py` command or with the `start.bat` file
 
 Presence can be stopped via **Keyboard Interrupt** (CTRL + C).
 
